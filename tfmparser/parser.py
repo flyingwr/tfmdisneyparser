@@ -111,4 +111,6 @@ class Parser:
 				for key, value in self.fetched.items():
 					self.fetched[key] = value.replace("\\", "")
 
+				print(self.fetched)
+
 				print("Parser data has been updated")
