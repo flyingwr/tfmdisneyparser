@@ -61,7 +61,7 @@ class Player(dict):
 						break
 
 		for line, content in enumerate(dumpscript):
-			if content.endswith(", <q>[public]::Number)(2 params, 0 optional)") and "pushnull" in dumpscript[line + 5] and "coerce" in dumpscript[line + 6]:
+			if content.endswith(", <q>[public]::Number)(2 params, 0 optional)") and "pushnull" in dumpscript[line + 5]:
 				for x in range(line, line + 20):
 					if "getlex <q>[public]::Number" in dumpscript[x] and "getproperty <q>[public]::MIN_VALUE" in dumpscript[x + 1]:
 						print("ok")
