@@ -84,14 +84,7 @@ class Chat(dict):
 						if (setproperty := await find_one(SET_PROPERTY, dumpscript[line + 6])) is not None and "returnvoid" in dumpscript[line + 7]:
 							self["is_down"] = setproperty.group(1)
 							break
-
-				if (player_physics := self.get("player_physics")) is not None:
-					for line, content in enumerate(dumpscript):
-						if f"getproperty <q>[public]::{player_physics}" in content and (callproperty := await find_one(CALL_PROPERTY, dumpscript[line + 1])) is not None:
-							if "getlocal_1" in dumpscript[line - 1] and "setlocal r" in dumpscript[line - 2] and "convert_d" in dumpscript[line - 3]:
-								self["get_x_form"] = callproperty.group(1)
-								break
-			
+							
 			for line, content in enumerate(dumpscript):
 				if f"getproperty <q>[public]::{chat_instance}" in content:
 					if "getproperty <q>[public]::stage" in dumpscript[line + 1] and "getproperty <q>[public]::focus" in dumpscript[line + 2]:
