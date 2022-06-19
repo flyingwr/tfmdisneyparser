@@ -139,7 +139,7 @@ class Player(dict):
 		for line, content in enumerate(dumpscript):
 			if "getlocal r5" in content and "getlocal_1" in dumpscript[line + 1] and "getproperty" in dumpscript[line + 2]:
 				if (setproperty := await find_one(SET_PROPERTY, dumpscript[line + 3])) is not None:
-					if "getlocal r5" in dumpscript[line + 4] and "iffalse" in dumpscript[line + 5]:
+					if "getlocal r5" in dumpscript[line + 4] and "iffalse" in dumpscript[line + 6]:
 						print("ok")
 
 		return self
