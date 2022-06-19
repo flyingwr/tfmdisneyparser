@@ -83,7 +83,8 @@ class Player(dict):
 		if (pos_x := self.get("pos_x")) is not None and (pos_y := self.get("pos_y")) is not None:
 			for line, content in enumerate(dumpscript):
 				if "getlocal_3" in content and (getproperty := await find_one(GET_PROPERTY, dumpscript[line + 1])) is not None and f"getproperty <q>[public]::{pos_x}" in dumpscript[line + 2]:
-					print(getproperty.group(2))
+					if "getlocal_3" in dumpscript[line + 3]:
+						print(getproperty.group(2))
 
 		for line, content in enumerate(dumpscript):
 			if "subtract" in content and "setproperty" in dumpscript[line + 1] and "getlocal_3" in dumpscript[line + 2]:
