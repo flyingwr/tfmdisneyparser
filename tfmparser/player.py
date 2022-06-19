@@ -66,7 +66,7 @@ class Player(dict):
 					if "getlex <q>[public]::Number" in dumpscript[x] and "getproperty <q>[public]::MIN_VALUE" in dumpscript[x + 1]:
 						for y in range(x, x + 100):
 							if "getproperty <q>[public]::position" in dumpscript[y] and (getproperty := await find_one(GET_PROPERTY, dumpscript[y + 3])) is not None:
-								print("ok")
+								print(getproperty.group(2))
 						break
 
 		for line, content in enumerate(dumpscript):
