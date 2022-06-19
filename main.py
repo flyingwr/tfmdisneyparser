@@ -44,7 +44,7 @@ async def main():
 
 	runner = web.AppRunner(app)
 	await runner.setup()
-	site = web.TCPSite(runner, "0.0.0.0", os.getenv("PORT", 8090))
+	site = web.TCPSite(runner, "0.0.0.0", os.getenv("PORT", 8080))
 	await site.start()
 
 	await endpoint.fetch()

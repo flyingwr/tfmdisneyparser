@@ -111,11 +111,4 @@ class Parser:
 				for key, value in self.fetched.items():
 					self.fetched[key] = value.replace("\\", "")
 
-				with open("./keys.json") as f:
-					import json
-					data = json.load(f)
-
-					keys = [key for key in data["keys"].keys() if key not in self.fetched.keys()]
-					print(keys)
-
 				print("Parser data has been updated")
