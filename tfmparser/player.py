@@ -84,17 +84,8 @@ class Player(dict):
 			for line, content in enumerate(dumpscript):
 				if "getlocal_3" in content and (getproperty := await find_one(GET_PROPERTY, dumpscript[line + 1])) is not None and f"getproperty <q>[public]::{pos_x}" in dumpscript[line + 2]:
 					if "getlocal_3" in dumpscript[line + 3]:
-						print(getproperty.group(2))
-
-		for line, content in enumerate(dumpscript):
-			if "subtract" in content and "setproperty" in dumpscript[line + 1] and "getlocal_3" in dumpscript[line + 2]:
-				if (getproperty := await find_one(GET_PROPERTY, dumpscript[line + 3])) is not None and "getlocal_3" in dumpscript[line + 4]:
-					if f"getproperty <q>[public]::{getproperty.group(2)}" in dumpscript[line + 5] and "getlocal_3" in dumpscript[line + 7]:
-						if (_getproperty := await find_one(GET_PROPERTY, dumpscript[line + 6])) is not None and (__getproperty := await find_one(GET_PROPERTY, dumpscript[line + 8])) is not None:
-							self["physics_state"] = getproperty.group(2)
-							self["pos_x"] = self["physics_state_vx"] = _getproperty.group(2)
-							self["pos_y"] = self["physics_state_vy"] = __getproperty.group(2)
-							break
+						self["physics_state"] = getproperty.group(2)
+						break
 
 		if (b2vec2 := self.get("b2vec2")) is not None and (physics_state := self.get("physics_state")) is not None:
 			for line, content in enumerate(dumpscript):
