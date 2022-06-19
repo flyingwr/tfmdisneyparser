@@ -64,7 +64,10 @@ class Player(dict):
 			if content.endswith(", <q>[public]::Number)(2 params, 0 optional)") and "pushnull" in dumpscript[line + 5]:
 				for x in range(line, line + 20):
 					if "getlex <q>[public]::Number" in dumpscript[x] and "getproperty <q>[public]::MIN_VALUE" in dumpscript[x + 1]:
-						print("ok")
+						for y in range(x, x + 100):
+							if "getproperty <q>[public]::position" in dumpscript[y] and (getproperty := await find_one(GET_PROPERTY, dumpscript[y + 3])) is not None:
+								print("ok")
+						break
 
 		for line, content in enumerate(dumpscript):
 			if "subtract" in content and "setproperty" in dumpscript[line + 1] and "getlocal_3" in dumpscript[line + 2]:
