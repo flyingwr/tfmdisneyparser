@@ -22,4 +22,12 @@ class Timer(dict):
 						self["timer_class_name"] = getlex.group(1)
 						self["timer_prop"] = getproperty.group(2)
 						break
+
+		if (timer_class_name := self.get("timer_class_name")) is not None:
+			for line, content in enumerate(dumpscript):
+				if f"getlex <q>[public]::{timer_class_name}" in content and (getproperty := await find_one(GET_PROPERTY, dumpscript[line + 1])) is not None:
+					if "iffalse" in dumpscript[line + 2] and "findpropstrict <q>[public]::Error" in dumpscript[line + 3]:
+						self["timer_instance"] = getproperty.group(2)
+						print("ok")
+
 		return self
