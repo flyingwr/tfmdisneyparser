@@ -61,9 +61,10 @@ class Player(dict):
 						break
 
 		for line, content in enumerate(dumpscript):
-			if content.endswith(", <q>[public]::Number)(2 params, 0 optional)") and "pushnull" in dumpscript[line + 5]:
-				if "coerce" in dumpscript[line + 6] and "setlocal_3" in dumpscript[line + 7] and "pushnan" in dumpscript[line + 8]:
-					print("ok")
+			if content.endswith(", <q>[public]::Number)(2 params, 0 optional)") and "pushnull" in dumpscript[line + 5] and "coerce" in dumpscript[line + 6]:
+				for x in range(line, line + 20):
+					if "getlex <q>[public]::Number" in dumpscript[x] and "getproperty <q>[public]::MIN_VALUE" in dumpscript[x + 1]:
+						print("ok")
 
 		for line, content in enumerate(dumpscript):
 			if "subtract" in content and "setproperty" in dumpscript[line + 1] and "getlocal_3" in dumpscript[line + 2]:
