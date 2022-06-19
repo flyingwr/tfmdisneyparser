@@ -61,15 +61,18 @@ class Player(dict):
 						break
 
 		for line, content in enumerate(dumpscript):
+			if content.endswith(", <q>[public]::Number)(2 params, 0 optional)") and "pushnull" in dumpscript[line + 5]:
+				if "coerce" in dumpscript[line + 6] and "setlocal_3" in dumpscript[line + 7] and "pushnan" in dumpscript[line + 8] and "setlocal r4" in dumpscript[line + 9]:
+					print("ok")
+
+		for line, content in enumerate(dumpscript):
 			if "subtract" in content and "setproperty" in dumpscript[line + 1] and "getlocal_3" in dumpscript[line + 2]:
 				if (getproperty := await find_one(GET_PROPERTY, dumpscript[line + 3])) is not None and "getlocal_3" in dumpscript[line + 4]:
 					if f"getproperty <q>[public]::{getproperty.group(2)}" in dumpscript[line + 5] and "getlocal_3" in dumpscript[line + 7]:
 						if (_getproperty := await find_one(GET_PROPERTY, dumpscript[line + 6])) is not None and (__getproperty := await find_one(GET_PROPERTY, dumpscript[line + 8])) is not None:
 							self["physics_state"] = getproperty.group(2)
-							self["physics_state_vx"] = x = _getproperty.group(2)
-							self["physics_state_vy"] = y = __getproperty.group(2)
-							self["pos_x"] = x
-							self["pos_y"] = y
+							self["pos_x"] = self["physics_state_vx"] = _getproperty.group(2)
+							self["pos_y"] = self["physics_state_vy"] = __getproperty.group(2)
 							break
 
 		if (b2vec2 := self.get("b2vec2")) is not None and (physics_state := self.get("physics_state")) is not None:
@@ -82,8 +85,7 @@ class Player(dict):
 		for line, content in enumerate(dumpscript):
 			if "jump" in content and "label" in dumpscript[line + 1] and (getlex := await find_one(GET_LEX, dumpscript[line + 2])) is not None:
 				if "getlocal r9" in dumpscript[line + 3]:
-					self["anim_class_name"] = result = getlex.group(1)
-					self["shaman_handler_class_name"] = result
+					self["shaman_handler_class_name"] = self["anim_class_name"] = getlex.group(1)
 
 					for x in range(line, line + 12):
 						if (callpropvoid := await find_one(CALL_PROPVOID, dumpscript[x])) is not None:
@@ -97,8 +99,7 @@ class Player(dict):
 				if f"getlex <q>[public]::{anim_class_name}" in content and "getlocal r" in dumpscript[line + 1] and "getlocal r" in dumpscript[line + 2]:
 					if (callpropvoid := await find_one(CALL_PROPVOID, dumpscript[line + 3])) is not None and dumpscript[line + 3].endswith(", 2 params"):
 						if "setlocal r" in dumpscript[line - 1]:
-							self["update_coord2"] = result = callpropvoid.group(1)
-							self["change_player_speed2"] = result
+							self["change_player_speed2"]  = self["update_coord2"] = callpropvoid.group(1)
 							break
 
 		for line, content in enumerate(dumpscript):
