@@ -70,9 +70,20 @@ class Player(dict):
 		if (get_x_form := self.get("get_x_form")) is not None:
 			for line, content in enumerate(dumpscript):
 				if f"callproperty <q>[public]::{get_x_form}" in content:
+					i = 0
 					for x in range(line, line + 25):
 						if "getproperty <q>[public]::position" in dumpscript[x] and (getproperty := await find_one(GET_PROPERTY, dumpscript[x + 1])) is not None and "convert_d" in dumpscript[x + 2]:
-							print(getproperty.group(2))
+							if not i:
+								self["pos_x"] = self["physics_state_vx"] = getproperty.group(2)
+							else:
+								self["pos_y"] = self["physics_state_vy"] = getproperty.group(2)
+								break
+							i += 1
+
+		if (pos_x := self.get("pos_x")) is not None and (pos_y := self.get("pos_y")) is not None:
+			for line, content in enumerate(dumpscript):
+				if "getlocal_3" in content and (getproperty := await find_one(GET_PROPERTY, dumpscript[line + 1])) is not None and f"getproperty <q>[public]::{pos_x}" in dumpscript[line + 2]:
+					print(getproperty.group(2))
 
 		for line, content in enumerate(dumpscript):
 			if "subtract" in content and "setproperty" in dumpscript[line + 1] and "getlocal_3" in dumpscript[line + 2]:
