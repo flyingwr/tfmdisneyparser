@@ -62,7 +62,7 @@ class Player(dict):
 
 		for line, content in enumerate(dumpscript):
 			if content.endswith(", <q>[public]::Number)(2 params, 0 optional)") and "pushnull" in dumpscript[line + 5]:
-				if "coerce" in dumpscript[line + 6] and "setlocal_3" in dumpscript[line + 7] and "pushnan" in dumpscript[line + 8] and "setlocal r4" in dumpscript[line + 9]:
+				if "coerce" in dumpscript[line + 6] and "setlocal_3" in dumpscript[line + 7] and "pushnan" in dumpscript[line + 8]:
 					print("ok")
 
 		for line, content in enumerate(dumpscript):
