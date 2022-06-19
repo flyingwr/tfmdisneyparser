@@ -68,6 +68,7 @@ class Player(dict):
 						break
 		
 		if (get_x_form := self.get("get_x_form")) is not None:
+			print("going")
 			for line, content in enumerate(dumpscript):
 				if f"callproperty <q>[public]::{get_x_form}" in content:
 					for x in range(line, line + 25):
