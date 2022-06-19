@@ -28,6 +28,6 @@ class Timer(dict):
 				if f"getlex <q>[public]::{timer_class_name}" in content and (getproperty := await find_one(GET_PROPERTY, dumpscript[line + 1])) is not None:
 					if "iffalse" in dumpscript[line + 2] and "findpropstrict <q>[public]::Error" in dumpscript[line + 3]:
 						self["timer_instance"] = getproperty.group(2)
-						print("ok")
+						break
 
 		return self
