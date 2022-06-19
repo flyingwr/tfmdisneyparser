@@ -19,8 +19,8 @@ class Checker(dict):
 											if (callpropvoid := await find_one(CALL_PROPVOID, dumpscript[x + 5])) is not None:
 												if (_getproperty := await find_one(GET_PROPERTY, dumpscript[x + 7])) is not None:
 													self["socket_class_name"] = getlex.group(1)
-													self["main_socket_instance"] = getproperty.group(2)
-													self["bulle_socket_instance"] = _getproperty.group(2)
+													self["bulle_socket_instance"] = getproperty.group(2)
+													self["main_socket_instance"] = _getproperty.group(2)
 													self["data_sender"] = callpropvoid.group(1)
 													break
 								break
