@@ -71,8 +71,8 @@ class Player(dict):
 			for line, content in enumerate(dumpscript):
 				if f"callproperty <q>[public]::{get_x_form}" in content:
 					for x in range(line, line + 25):
-						if "getproperty <q>[public]::position" in dumpscript[x] and (getproperty := await find_one(GET_PROPERTY, dumpscript[x + 1])) is not None:
-							print(getproperty.group(2))
+						if "getproperty <q>[public]::position" in dumpscript[x]: # and (getproperty := await find_one(GET_PROPERTY, dumpscript[x + 1])) is not None:
+							print(dumpscript[x:x+5])
 
 		for line, content in enumerate(dumpscript):
 			if "subtract" in content and "setproperty" in dumpscript[line + 1] and "getlocal_3" in dumpscript[line + 2]:
