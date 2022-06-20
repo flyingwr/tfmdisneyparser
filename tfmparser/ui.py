@@ -8,8 +8,9 @@ class UI(dict):
 			if "slot 0: var" in content and ":<q>[public]__AS3__.vec::Vector" in content:
 				if ":<q>[public]flash.utils::Timer" in dumpscript[line + 2]:
 					if "Boolean =" not in dumpscript[line + 1]:
-						self["ui_element_class_name"] = (await find_one(PUBLIC_SLOT, dumpscript[line + 1])).group(2)
-						break
+						if (slot := await find_one(PUBLIC_SLOT, dumpscript[line + 1])) is not None:
+							self["ui_element_class_name"] = slot.group(2)
+							break
 
 		if (ui_element_class_name := self.get("ui_element_class_name")) is not None:
 			for line, content in enumerate(dumpscript):
