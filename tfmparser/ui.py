@@ -54,8 +54,9 @@ class UI(dict):
 
 			for line, content in enumerate(dumpscript):
 				if content.endswith(f"=(<q>[public]::String, <q>[public]::{ui_element_class_name})(2 params, 0 optional)"):
-					self["ui_items_list_class_name"] = (await find_one(PUBLIC_METHOD, content)).group(2)
-					break
+					if (public_method := await find_one(PUBLIC_METHOD, content)) is not None:
+						self["ui_items_list_class_name"] = public_method.group(2)
+						break
 			
 			if (ui_items_list_class_name := self.get("ui_items_list_class_name")) is not None:
 				for line, content in enumerate(dumpscript):
