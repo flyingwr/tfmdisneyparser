@@ -37,7 +37,7 @@ class API:
 endpoint = API()
 	
 async def main():
-	os.chmod("swfdump", os.stat("swfdump").st_mode | stat.S_IEXEC)
+	os.chmod("./tools/swfdump", os.stat("./tools/swfdump").st_mode | stat.S_IEXEC)
 
 	app = web.Application()
 	await endpoint.update()
