@@ -41,8 +41,7 @@ class Parser:
 	async def run_console(self, target: str):
 		self.dumpscript *= 0
 
-		_exec = "swfdump" if sys.platform == "linux" else "tools/swfdump"
-		console = subprocess.Popen([_exec, "-a", target], shell=False,
+		console = subprocess.Popen(["tools/swfdump", "-a", target], shell=False,
 			stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 		self.dumpscript = [line.decode().rstrip() for line in console.stdout]
 
