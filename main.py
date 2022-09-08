@@ -5,6 +5,7 @@ from typing import Optional
 import api
 import asyncio
 import os
+import stat
 import subprocess
 
 class API:
@@ -36,6 +37,8 @@ class API:
 endpoint = API()
 	
 async def main():
+	os.chmod("swfdump", os.stat("swfdump").st_mode | stat.S_IEXEC)
+
 	app = web.Application()
 	await endpoint.update()
 
